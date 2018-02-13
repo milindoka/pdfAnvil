@@ -1,4 +1,4 @@
-package mrk;
+package mvc;
 
 
 import javax.swing.*;
