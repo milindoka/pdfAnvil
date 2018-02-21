@@ -45,33 +45,33 @@ public class createpdf
 	     //    Font TNR=new Font(TNR16)
 	     // Phrase phr=new Phrase("Test",TNR16);
 	      
-	    	PdfPTable table = new PdfPTable(12);
-	    	Phrase phr=new Phrase("Test",NORMAL);
+	    	PdfPTable table = new PdfPTable(3);
+	    	
+	    	PdfPCell cell = new PdfPCell(new Phrase("Test"));
+	    	cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+	    	table.addCell(cell);
 	    	
 	    	
-	    	PdfPCell cell = new PdfPCell(phr);
-	    	 cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-	    	 //cell.setVerticalAlignment(PdfPCell.ALIGN_CENTER);
-	    	
-	    	 
-	    	 
-	    	 //Phrase content = new Phrase("Blah blah blah", Font);
+	    	cell = new PdfPCell(new Phrase("SIWS College"));
+	    	cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+	    	table.addCell(cell);
+	    
 
-	    	// Float fontSize = NORMAL.getSize();
-	        //    	 Float capHeight = 
+	    	cell = new PdfPCell(new Phrase("Test"));
+	    	cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+	    	table.addCell(cell);
+	    	
 
 	    	 Float padding = 5f;    
 
-	    	// PdfPCell cell = new PdfPCell(content);
-	    	 //cell.setPadding(padding);
 	    	 cell.setPaddingBottom(padding);
 	    	 
-	    	 
-	    	 for(int i=0;i<120;i++)
+	    /*	 
+	    	 for(int i=0;i<3;i++)
 	    	{
 	    	table.addCell(cell);
 	    	}
-	    	    	
+	    */    	
 	    	document.add(table);
 	    
 	    	document.close();
