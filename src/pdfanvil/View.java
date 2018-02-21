@@ -30,8 +30,12 @@ public class View {
         return button;
     }
     
-    public void setText(String text){
+    public void setText(String text)
+    
+    {
         label.setText(text);
+    
+    
     }
     
     
