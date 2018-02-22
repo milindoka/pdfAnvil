@@ -35,7 +35,7 @@ public class createpdf
 	    	String filename="hello.pdf";
 	    		
 	    	Document document = new Document(PageSize.A4);
-	    	   document.setMargins(2, 2, 2, 2);
+	    	document.setMargins(2, 2, 2, 2);
 	    	PdfWriter.getInstance(document, new FileOutputStream(filename));
 	    	document.open();
 	    	
@@ -114,16 +114,19 @@ public class createpdf
   	PdfPCell cell = new PdfPCell(new Phrase("Test"));
   	
   	 PdfPTable table1 = new PdfPTable(2);
+  	table1.setWidthPercentage(100);
   	for(int i=0;i<20;i++)
   	{
   	table1.addCell(cell);
   	}
   	 
   	 PdfPCell firstTableCell = new PdfPCell();
+  	 firstTableCell.setPadding(0);
+  	// firstTableCell.setBorderWidth(0);
   	 firstTableCell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
      firstTableCell.addElement(table1);
      table.addCell(firstTableCell);
-  	
+   //  table.setWidthPercentage(100);  	
      cell = new PdfPCell(new Phrase(""));
   	for(int i=0;i<4;i++)
   	{
