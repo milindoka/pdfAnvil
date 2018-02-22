@@ -72,13 +72,10 @@ public class createpdf
   	cell = new PdfPCell(new Phrase("Subject :"));cell.setBorder(PdfPCell.NO_BORDER);
   	cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);cell.setBorder(PdfPCell.NO_BORDER);
   	table.addCell(cell);
-  
 
   	cell = new PdfPCell(new Phrase("Examiner :"));cell.setBorder(PdfPCell.NO_BORDER);
   	cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
   	table.addCell(cell);
-
-
 
   	cell = new PdfPCell(new Phrase("Examination :"));cell.setBorder(PdfPCell.NO_BORDER);
   	cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
@@ -88,7 +85,6 @@ public class createpdf
   	cell = new PdfPCell(new Phrase("Total :"));
   	cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);cell.setBorder(PdfPCell.NO_BORDER);
   	table.addCell(cell);
-  
 
   	cell = new PdfPCell(new Phrase("Date :"));cell.setBorder(PdfPCell.NO_BORDER);
   	cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
@@ -116,6 +112,23 @@ public class createpdf
 	  {PdfPTable table = new PdfPTable(5);
   	
   	PdfPCell cell = new PdfPCell(new Phrase("Test"));
+  	
+  	 PdfPTable table1 = new PdfPTable(2);
+  	for(int i=0;i<20;i++)
+  	{
+  	table1.addCell(cell);
+  	}
+  	 
+  	 PdfPCell firstTableCell = new PdfPCell();
+  	 firstTableCell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+     firstTableCell.addElement(table1);
+     table.addCell(firstTableCell);
+  	
+     cell = new PdfPCell(new Phrase(""));
+  	for(int i=0;i<4;i++)
+  	{
+      table.addCell(cell);	
+  	}
   	
   	/*
   	table.addCell(cell);
@@ -166,10 +179,7 @@ public class createpdf
   //	 cell.setPaddingBottom(padding);
   	 
  */ 
-  	 for(int i=0;i<200;i++)
-  	{
-  	table.addCell(cell);
-  	}
+  	 
      	
      	document.add(table);
 		  
