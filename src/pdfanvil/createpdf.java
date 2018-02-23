@@ -4,10 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -112,9 +110,9 @@ public class createpdf
 	  {PdfPTable table = new PdfPTable(5);
   	
   	PdfPCell cell = new PdfPCell(new Phrase("Test"));
-  	
-  	 PdfPTable table1 = new PdfPTable(2);
-  	table1.setWidthPercentage(100);
+  	float colwidth[]={6,3};
+  	 PdfPTable table1 = new PdfPTable(colwidth);
+  	table1.setWidthPercentage(96);
   	for(int i=0;i<20;i++)
   	{
   	table1.addCell(cell);
