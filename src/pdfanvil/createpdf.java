@@ -121,17 +121,7 @@ public class createpdf
   	table.addCell(cell);
     
   	table.setSpacingAfter(10f);
-//  	 Float padding = 5f;    
-
-  //	 cell.setPaddingBottom(padding);
-  	 
-  /*	 
-  	 for(int i=0;i<3;i++)
-  	{
-  	table.addCell(cell);
-  	}
-  */    	
-     	document.add(table);
+    document.add(table);
 		  
 		  
 	  }
@@ -142,87 +132,47 @@ public class createpdf
 	  {PdfPTable table = new PdfPTable(5);
 	  float colwidth[]={6,3};
   	  
-      PdfPTable table1 = new PdfPTable(colwidth);
-  	  table1.setWidthPercentage(96);
+	  
+	  ///Create 5 subtables
+	  PdfPTable [] tab = new PdfPTable[5];
+	  //initialize table 0
+	  tab[0] = new PdfPTable(colwidth);
+      tab[0].setWidthPercentage(96);
   	
   	  
   	  PdfPCell cell = new PdfPCell(new Phrase("Roll"));
-  	  table1.addCell(cell);
+  	cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+  	  
+  	  
+  	  tab[0].addCell(cell);
   	  cell = new PdfPCell(new Phrase("Mrk"));
-  	  table1.addCell(cell);
+  	cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+  	  tab[0].addCell(cell);
   	
   	for(int i=0;i<strength;i++)
   	{ cell = new PdfPCell(new Phrase(roll.get(i)));
-	  table1.addCell(cell);
+  	  cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+	  tab[0].addCell(cell);
 	  cell = new PdfPCell(new Phrase(mark.get(i)));
-	  table1.addCell(cell);
+	  cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+	  tab[0].addCell(cell);
   		
   	}
   	 
   	 PdfPCell firstTableCell = new PdfPCell();
   	 firstTableCell.setPadding(0);
   	// firstTableCell.setBorderWidth(0);
-  	 firstTableCell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-     firstTableCell.addElement(table1);
+  	 firstTableCell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+     firstTableCell.addElement(tab[0]);
      table.addCell(firstTableCell);
    //  table.setWidthPercentage(100);  	
      cell = new PdfPCell(new Phrase(""));
-  	for(int i=0;i<4;i++)
+  
+     for(int i=0;i<4;i++)
   	{
       table.addCell(cell);	
   	}
-  	
-  	/*
-  	table.addCell(cell);
-  	
-  	
-  	cell = new PdfPCell(new Phrase("SIWS College"));
-  	cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-  	table.addCell(cell);
-  
-
-  	cell = new PdfPCell(new Phrase(" "));
-  	table.addCell(cell);
-
-  	
-  	cell = new PdfPCell(new Phrase("Class-Div :"));
-  	cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-  	table.addCell(cell);
-  	
-  	
-  	cell = new PdfPCell(new Phrase("Subject :"));
-  	cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-  	table.addCell(cell);
-  
-
-  	cell = new PdfPCell(new Phrase("Examiner :"));
-  	cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-  	table.addCell(cell);
-
-
-
-  	cell = new PdfPCell(new Phrase("Examination :"));
-  	cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-  	table.addCell(cell);
-  	
-  	
-  	cell = new PdfPCell(new Phrase("Total :"));
-  	cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-  	table.addCell(cell);
-  
-
-  	cell = new PdfPCell(new Phrase("Date :"));
-  	cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
-  	table.addCell(cell);
-    
-
-//  	 Float padding = 5f;    
-
-  //	 cell.setPaddingBottom(padding);
-  	 
- */ 
-  	 
-     	
+       	
      	document.add(table);
 		  
 		  
