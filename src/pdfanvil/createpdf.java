@@ -66,7 +66,11 @@ public class createpdf
 	        AddHeader(document);
 	    	FillMarksArray();
 	        AddBody(document);
-            document.close();
+         
+	        AddFooter(document);
+	        
+	        
+	        document.close();
 	    }
 	   	
 
@@ -116,12 +120,12 @@ public class createpdf
   	table.setSpacingAfter(10f);
     document.add(table);
 		  
-	  }
+  }
 	  
 	  void AddBody(Document document) throws DocumentException, IOException
 	  {PdfPTable table = new PdfPTable(5);
 	   table.setWidthPercentage(95);
-	   
+	//   table.getDefaultCell().setFixedHeight(150);
 	  ///Create 5 subtables
 	  float colwidth[]={6,3};
 	  PdfPTable [] tab = new PdfPTable[5];
@@ -129,7 +133,7 @@ public class createpdf
 	  for(int i=0;i<5;i++)
 	   { tab[i] = new PdfPTable(colwidth);
          tab[i].setWidthPercentage(95);
-         tab[i].getDefaultCell().setFixedHeight(40);
+         
 	   }
   	
       //Fill and Add Subtables as required, skip extra subtables by inserting empty cell 
@@ -172,10 +176,12 @@ public class createpdf
 	  
 	  	  cell = new PdfPCell(new Phrase(roll.get(i+index*40)));
 	  	  cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-	      cell.setPaddingBottom(4f);
+	      cell.setPaddingBottom(3f);
+	      cell.setPaddingTop(1f);
 		  tbl.addCell(cell);
 		  cell = new PdfPCell(new Phrase(mark.get(i+index*40)));
-		  cell.setPaddingBottom(4f);	
+		  cell.setPaddingBottom(3f);	
+		  cell.setPaddingTop(1f);
 		  cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
 		  
 		  tbl.addCell(cell);
@@ -186,7 +192,55 @@ public class createpdf
 		 
 		 
 	 }
+
+	 
+	 
+	 
+
+	  void AddFooter(Document document) throws DocumentException, IOException
+	  {PdfPTable table = new PdfPTable(2);
+	 
 	  
+	   PdfPCell cell = new PdfPCell(new Phrase("Key : AABBABABAADDDCCC"));
+	   cell.setBorder(PdfPCell.NO_BORDER);
+	   cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+	   table.addCell(cell);
+	  
+	   cell = new PdfPCell(new Phrase(" "));
+	   cell.setBorder(PdfPCell.NO_BORDER);
+	   table.addCell(cell);
+	   table.addCell(cell);
+	   table.addCell(cell);
+	   table.addCell(cell);
+	   table.addCell(cell);
+
+	   
+	   cell = new PdfPCell(new Phrase("Page Total : "));
+       cell.setBorder(PdfPCell.NO_BORDER);
+	   cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+	   table.setWidthPercentage(95);
+	   table.addCell(cell);
+	  	
+	  	
+	   cell = new PdfPCell(new Phrase("Examiner's Signature ; ___________"));
+	   cell.setBorder(PdfPCell.NO_BORDER);
+	   cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+	   table.addCell(cell);
+	  
+
+	   
+	  	
+	  
+	  	
+	   cell = new PdfPCell(new Phrase(" "));
+	 //  cell.setBorder(PdfPCell.NO_BORDER);
+	   table.addCell(cell);
+	   
+	   table.setSpacingBefore(10f);
+	    document.add(table);
+		  
+		  }
+
 	  
 	  
 	  
