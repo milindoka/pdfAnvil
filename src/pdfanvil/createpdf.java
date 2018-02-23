@@ -21,7 +21,7 @@ public class createpdf
 	ArrayList<String> mark=new ArrayList<String>();//creating new generic arraylist
 	//fylename=path+"/"+ReportName+"-Science.txt";
 	
-	int strength=200,requiredtables=0;
+	int strength=147,requiredtables=0;
 	
 	public String getJarPath()
     {
@@ -100,7 +100,7 @@ public class createpdf
   	cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);cell.setBorder(PdfPCell.NO_BORDER);
   	table.addCell(cell);
 
-  	cell = new PdfPCell(new Phrase("Examiner :"));cell.setBorder(PdfPCell.NO_BORDER);
+  	cell = new PdfPCell(new Phrase("Examiner : PADMAVAT"));cell.setBorder(PdfPCell.NO_BORDER);
   	cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
   	table.addCell(cell);
 
@@ -113,7 +113,7 @@ public class createpdf
   	cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);cell.setBorder(PdfPCell.NO_BORDER);
   	table.addCell(cell);
 
-  	cell = new PdfPCell(new Phrase("Date :"));cell.setBorder(PdfPCell.NO_BORDER);
+  	cell = new PdfPCell(new Phrase("Date : 23/02/18"));cell.setBorder(PdfPCell.NO_BORDER);
   	cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
   	table.addCell(cell);
     
@@ -149,6 +149,7 @@ public class createpdf
   	  else
   	  {  
   		PdfPCell cell= new PdfPCell(new Phrase(""));
+  		cell.setBorder(PdfPCell.NO_BORDER);
   		table.addCell(cell);
   	  }
   	}
