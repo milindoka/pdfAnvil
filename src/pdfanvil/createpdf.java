@@ -8,6 +8,7 @@ import java.util.Random;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -16,12 +17,11 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public class createpdf
 {
-	
 	ArrayList<String> roll=new ArrayList<String>();//creating new generic arraylist  
 	ArrayList<String> mark=new ArrayList<String>();//creating new generic arraylist
 	//fylename=path+"/"+ReportName+"-Science.txt";
-	int strength=45,requiredtables=0;
 	
+	int strength=200,requiredtables=0;
 	
 	public String getJarPath()
     {
@@ -47,58 +47,48 @@ public class createpdf
 			mark.add(str);
 			
 		  }
-
-	
 	
 	}
 	
 	
-	
-	
-	
 	 void CardsPdf() throws DocumentException, IOException
-	    {
-	    	
-	    	String filename="hello.pdf";
-	    		
+	    {   if(strength>200) return;
+		 	requiredtables=strength/40;
+	        if(strength%40!=0) requiredtables++;
+
+	        String filename="hello.pdf";
 	    	Document document = new Document(PageSize.A4);
-	    	document.setMargins(2, 2, 2, 2);
+	    	document.setMargins(50, 2, 2, 2);
 	    	PdfWriter.getInstance(document, new FileOutputStream(filename));
 	    	document.open();
-	    	
-	    	
 	    	
 	     //    com.itextpdf.text.Font NORMAL = new com.itextpdf.text.Font(FontFamily.TIMES_ROMAN, 12);
 	        AddHeader(document);
 	    	FillMarksArray();
-	        requiredtables=strength/40;
-	       
-	        if(strength%40!=0) requiredtables++; 
-	        System.out.println(requiredtables);
 	        AddBody(document);
             document.close();
 	    }
 	   	
 
-	  void AddHeader(Document document) throws DocumentException, IOException
-	  {PdfPTable table = new PdfPTable(3);
-	   
-  	PdfPCell cell = new PdfPCell(new Phrase(" "));
-  	cell.setBorder(PdfPCell.NO_BORDER);
-  	table.addCell(cell);
+  void AddHeader(Document document) throws DocumentException, IOException
+  {PdfPTable table = new PdfPTable(3);
+   PdfPCell cell = new PdfPCell(new Phrase(" "));
+   cell.setBorder(PdfPCell.NO_BORDER);
+   table.setWidthPercentage(95);
+   table.addCell(cell);
   	
   	
-  	cell = new PdfPCell(new Phrase("SIWS College"));cell.setBorder(PdfPCell.NO_BORDER);
-  	cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-  	table.addCell(cell);
+   cell = new PdfPCell(new Phrase("SIWS College"));cell.setBorder(PdfPCell.NO_BORDER);
+   cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+   table.addCell(cell);
   
 
-  	cell = new PdfPCell(new Phrase(" "));cell.setBorder(PdfPCell.NO_BORDER);
-  	table.addCell(cell);
+   cell = new PdfPCell(new Phrase(" "));cell.setBorder(PdfPCell.NO_BORDER);
+   table.addCell(cell);
 
   	
-  	cell = new PdfPCell(new Phrase("Class-Div :"));cell.setBorder(PdfPCell.NO_BORDER);
-  	cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+   cell = new PdfPCell(new Phrase("Class-Div :"));cell.setBorder(PdfPCell.NO_BORDER);
+   cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
   	table.addCell(cell);
   	
   	
@@ -126,28 +116,29 @@ public class createpdf
   	table.setSpacingAfter(10f);
     document.add(table);
 		  
-		  
 	  }
-	  
-
 	  
 	  void AddBody(Document document) throws DocumentException, IOException
 	  {PdfPTable table = new PdfPTable(5);
-	  float colwidth[]={6,3};
-  	  
-	  
+	   table.setWidthPercentage(95);
+	   
 	  ///Create 5 subtables
+	  float colwidth[]={6,3};
 	  PdfPTable [] tab = new PdfPTable[5];
-	  //initialize table 0
-	  tab[0] = new PdfPTable(colwidth);
-      tab[0].setWidthPercentage(96);
+	  //initialize subtables..
+	  for(int i=0;i<5;i++)
+	   { tab[i] = new PdfPTable(colwidth);
+         tab[i].setWidthPercentage(95);
+         tab[i].getDefaultCell().setFixedHeight(40);
+	   }
   	
       //Fill and Add Subtables as required, skip extra subtables by inserting empty cell 
     for(int j=0;j<5;j++)
-  	  {if(j<requiredtables-1) 
+  	  {if(j<requiredtables) 
   		  { FillSubTable(tab[j],j); 
   		    PdfPCell cellfortable = new PdfPCell();
   		    cellfortable.setPadding(0);
+  		  cellfortable.setBorder(PdfPCell.NO_BORDER);
   		    cellfortable.addElement(tab[j]);
   		    table.addCell(cellfortable);
   		  }
@@ -166,11 +157,13 @@ public class createpdf
 
 	 void FillSubTable(PdfPTable tbl,int index)
 	 {
-		 PdfPCell cell = new PdfPCell(new Phrase("Roll"));
+		 PdfPCell cell = new PdfPCell(new Phrase("ROLL"));
+		  cell.setPaddingBottom(4f);
+		  
 	  	  cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-	  	  
 	  	  tbl.addCell(cell);
-	  	  cell = new PdfPCell(new Phrase("Mrk"));
+	  	  cell = new PdfPCell(new Phrase("MRK"));
+	  	  cell.setPaddingBottom(4f);
 	  	  cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
 	  	  tbl.addCell(cell);
 	  	
@@ -179,9 +172,12 @@ public class createpdf
 	  
 	  	  cell = new PdfPCell(new Phrase(roll.get(i+index*40)));
 	  	  cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+	      cell.setPaddingBottom(4f);
 		  tbl.addCell(cell);
 		  cell = new PdfPCell(new Phrase(mark.get(i+index*40)));
+		  cell.setPaddingBottom(4f);	
 		  cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+		  
 		  tbl.addCell(cell);
 	  		
 	  	}
