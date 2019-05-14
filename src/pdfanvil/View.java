@@ -9,6 +9,7 @@ public class View {
     private JFrame frame;
     private JLabel label;
     private JButton button;
+    private JButton PRattendanceButton;
 
     
     public View(String text){
@@ -23,12 +24,22 @@ public class View {
         frame.getContentPane().add(label, BorderLayout.CENTER);
         
         button = new JButton("Button");        
-        frame.getContentPane().add(button, BorderLayout.SOUTH);        
+        frame.getContentPane().add(button, BorderLayout.SOUTH);
+        
+        PRattendanceButton = new JButton("Attendance Sheet");        
+        frame.getContentPane().add(PRattendanceButton, BorderLayout.CENTER);
+        
+        
     }
         
     public JButton getButton(){
         return button;
     }
+    
+    public JButton getAttendanceButton(){
+        return PRattendanceButton;
+    }
+    
     
     public void setText(String text)
     

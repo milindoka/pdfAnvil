@@ -11,6 +11,7 @@ public class Controller {
     private Model model;
     private View view;
     private ActionListener actionListener;
+    private ActionListener AttendanceButtonListener;
     
     private createpdf cp=new createpdf();
     
@@ -33,13 +34,22 @@ public class Controller {
                   linkBtnAndLabel();
               }
         };                
-        view.getButton().addActionListener(actionListener);   
+        view.getButton().addActionListener(actionListener); 
+        
+        AttendanceButtonListener = new ActionListener()
+        {
+              public void actionPerformed(ActionEvent actionEvent) {                  
+                  PrintAttendanceReport();
+              }
+        };                
+        view.getAttendanceButton().addActionListener(AttendanceButtonListener); 
+        
+        
+        
     }
     
     private void linkBtnAndLabel()
     {
-    //    model.incX();                
-    //    view.setText(Integer.toString(model.getX()));
     	try {
 			cp.CardsPdf();
 		} catch (DocumentException e) {
@@ -51,4 +61,23 @@ public class Controller {
 		}
     	
     }    
+    
+    private void PrintAttendanceReport()
+    {
+    	try {
+			cp.CardsPdf();
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    }    
+    
+    
+    
+    
+    
 }
