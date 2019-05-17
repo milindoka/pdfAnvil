@@ -14,7 +14,7 @@ public class Controller {
     private ActionListener AttendanceButtonListener;
     
     private createpdf cp=new createpdf();
-    
+    private createBatchPdf cbp=new createBatchPdf();
     
     public Controller(Model model, View view){
         this.model = model;
@@ -65,7 +65,7 @@ public class Controller {
     private void PrintAttendanceReport()
     {
     	try {
-			cp.CardsPdf();
+			cbp.CardsPdf();
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
