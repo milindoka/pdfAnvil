@@ -23,10 +23,7 @@ public class createBatchPdf
 {
 	ArrayList<String> roll=new ArrayList<String>();//creating new generic arraylist  
 
-	//fylename=path+"/"+ReportName+"-Science.txt";
-	
 	int strength=32,requiredtables=0;
-	 //Font normalFont = FontFactory.getFont(FontFactory.getFont("Liberation Serif", Font.NORMAL,10));
 	 Font normal = new Font(Font.FontFamily.TIMES_ROMAN, 11,
              Font.NORMAL);
 	 public String getJarPath()
@@ -46,14 +43,9 @@ public class createBatchPdf
 		
 		for(int i=0;i<strength;i++)
 		  {
-			
-			
 			roll.add(str); 
 			str=Increment(str);
-			
-			
 		  }
-	
 	}
 	
 	
@@ -73,14 +65,12 @@ public class createBatchPdf
 	        AddBody(document);
 	        AddFooter(document);
 	        
-	        
 	        document.close();
 	    }
 	   	
 
   void AddHeader(Document document) throws DocumentException, IOException
   {PdfPTable table = new PdfPTable(1);
-   
   	
    PdfPCell cell = new PdfPCell(new Phrase("College Index Number",normal));cell.setBorder(PdfPCell.NO_BORDER);
    cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
@@ -257,24 +247,6 @@ table2.setSpacingAfter(8f);
   }
 
   
-  
-  
-  
-  
-  
-	  
-
-	
-	  	
-		 
-		 
-		 
-	 
-
-	 
-	 
-	 
-
 	  void AddFooter(Document document) throws DocumentException, IOException
 	  {float footcolwid[]= {10,10,20};
 	   PdfPTable table = new PdfPTable(footcolwid);
@@ -317,12 +289,22 @@ table2.setSpacingAfter(8f);
 	   cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
 	   table.addCell(cell);
 
-	   
-	   
-	   
+	   PdfPTable table2 = new PdfPTable(1);
+	  	 table2.setWidthPercentage(95); 
+	  	
+	   cell = new PdfPCell(new Phrase("Note :",normal));cell.setBorder(PdfPCell.NO_BORDER);
+	   cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+	   table2.addCell(cell);
+	  	
+	  	
+	  	cell = new PdfPCell(new Phrase("1. Submit to Board with Parctical Marksheet. 2. Mark ABSENT with Red Ink. 3. Write Extra No.s if any.",normal));cell.setBorder(PdfPCell.NO_BORDER);
+	  	cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);cell.setBorder(PdfPCell.NO_BORDER);
+	  	table2.addCell(cell);
+
 	   
 	   
 	    document.add(table);
+	    document.add(table2);
 		  
 		  }
 
