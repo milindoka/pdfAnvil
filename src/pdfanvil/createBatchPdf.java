@@ -9,11 +9,17 @@ import java.util.Random;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+
+//Font MyFont = new Font("Liberation Serif", Font.PLAIN,10);
+//pg.setFont(MyFont); 
+
 
 public class createBatchPdf
 {
@@ -22,8 +28,10 @@ public class createBatchPdf
 	//fylename=path+"/"+ReportName+"-Science.txt";
 	
 	int strength=147,requiredtables=0;
-	
-	public String getJarPath()
+	 //Font normalFont = FontFactory.getFont(FontFactory.getFont("Liberation Serif", Font.NORMAL,10));
+	 Font normal = new Font(Font.FontFamily.TIMES_ROMAN, 10,
+             Font.NORMAL);
+	 public String getJarPath()
     {
     	File f = new File(System.getProperty("java.class.path"));
      	File dir = f.getAbsoluteFile().getParentFile();
@@ -62,7 +70,8 @@ public class createBatchPdf
 	    	PdfWriter.getInstance(document, new FileOutputStream(filename));
 	    	document.open();
 	    	
-	     //    com.itextpdf.text.Font NORMAL = new com.itextpdf.text.Font(FontFamily.TIMES_ROMAN, 12);
+	        //com.itextpdf.text.Font NORMAL = new com.itextpdf.text.Font(FontFamily.TIMES_ROMAN, 12);
+	    	
 	        AddHeader(document);
 	    	FillMarksArray();
 	        AddBody(document);
@@ -75,48 +84,40 @@ public class createBatchPdf
 	   	
 
   void AddHeader(Document document) throws DocumentException, IOException
-  {PdfPTable table = new PdfPTable(3);
+  {PdfPTable table = new PdfPTable(1);
    PdfPCell cell = new PdfPCell(new Phrase(" "));
    cell.setBorder(PdfPCell.NO_BORDER);
    table.setWidthPercentage(95);
    table.addCell(cell);
   	
   	
-   cell = new PdfPCell(new Phrase("SIWS College"));cell.setBorder(PdfPCell.NO_BORDER);
+   cell = new PdfPCell(new Phrase("College Index Number",normal));cell.setBorder(PdfPCell.NO_BORDER);
    cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
    table.addCell(cell);
-  
-
-   cell = new PdfPCell(new Phrase(" "));cell.setBorder(PdfPCell.NO_BORDER);
-   table.addCell(cell);
-
-  	
-   cell = new PdfPCell(new Phrase("Class-Div :"));cell.setBorder(PdfPCell.NO_BORDER);
-   cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-  	table.addCell(cell);
   	
   	
-  	cell = new PdfPCell(new Phrase("Subject :"));cell.setBorder(PdfPCell.NO_BORDER);
+  	cell = new PdfPCell(new Phrase("Maharashtra State Board of Secondary & Higher Secondary Education",normal));cell.setBorder(PdfPCell.NO_BORDER);
   	cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);cell.setBorder(PdfPCell.NO_BORDER);
   	table.addCell(cell);
 
-  	cell = new PdfPCell(new Phrase("Examiner : PADMAVAT"));cell.setBorder(PdfPCell.NO_BORDER);
-  	cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+  	
+  	cell = new PdfPCell(new Phrase("Mumbai Divisional Board, Vashi,Navi Mumbai - 400703",normal));cell.setBorder(PdfPCell.NO_BORDER);
+  	cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
   	table.addCell(cell);
 
-  	cell = new PdfPCell(new Phrase("Examination :"));cell.setBorder(PdfPCell.NO_BORDER);
-  	cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+  	cell = new PdfPCell(new Phrase("HSC - Practical - Feb-2018",normal));cell.setBorder(PdfPCell.NO_BORDER);
+  	cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
   	table.addCell(cell);
+ 	
   	
-  	
-  	cell = new PdfPCell(new Phrase("Total :"));
+  	cell = new PdfPCell(new Phrase("Attendance Sheet",normal));
   	cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);cell.setBorder(PdfPCell.NO_BORDER);
   	table.addCell(cell);
-
+/*
   	cell = new PdfPCell(new Phrase("Date : 23/02/18"));cell.setBorder(PdfPCell.NO_BORDER);
   	cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
   	table.addCell(cell);
-    
+    */
   	table.setSpacingAfter(10f);
     document.add(table);
 		  
