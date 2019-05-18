@@ -71,9 +71,7 @@ public class createBatchPdf
 	    	FillSeatArray();
 	        AddHeader(document);
 	        AddBody(document);
-	       
-         
-	        //AddFooter(document);
+	        AddFooter(document);
 	        
 	        
 	        document.close();
@@ -251,7 +249,8 @@ table2.setSpacingAfter(8f);
     cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
     table2.addCell(cell);
     }
-////////table row
+
+   
   	
     document.add(table2);
 		  
@@ -277,45 +276,52 @@ table2.setSpacingAfter(8f);
 	 
 
 	  void AddFooter(Document document) throws DocumentException, IOException
-	  {PdfPTable table = new PdfPTable(2);
-	 
-	  
-	   PdfPCell cell = new PdfPCell(new Phrase("Key : AABBABABAADDDCCC"));
+	  {float footcolwid[]= {10,10,20};
+	   PdfPTable table = new PdfPTable(footcolwid);
+	   table.setWidthPercentage(95);
+	   table.setSpacingBefore(40f);
+	   
+	   PdfPCell cell = new PdfPCell(new Phrase("Internal Examiner",normal));
 	   cell.setBorder(PdfPCell.NO_BORDER);
 	   cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
 	   table.addCell(cell);
 	  
-	   cell = new PdfPCell(new Phrase(" "));
-	   cell.setBorder(PdfPCell.NO_BORDER);
-	   table.addCell(cell);
-	   table.addCell(cell);
-	   table.addCell(cell);
-	   table.addCell(cell);
-	   table.addCell(cell);
-
 	   
-	   cell = new PdfPCell(new Phrase("Page Total : "));
+	   cell = new PdfPCell(new Phrase("External Examiner",normal));
        cell.setBorder(PdfPCell.NO_BORDER);
 	   cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-	   table.setWidthPercentage(95);
 	   table.addCell(cell);
 	  	
 	  	
-	   cell = new PdfPCell(new Phrase("Examiner's Signature ; ___________"));
+	   cell = new PdfPCell(new Phrase("Signature of Head of Jr College",normal));
 	   cell.setBorder(PdfPCell.NO_BORDER);
-	   cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
+	   cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+	   table.addCell(cell);
+	  	    
+	  ////////////////////////// TABLE ROW
+	   
+       cell = new PdfPCell(new Phrase("Name & Signature",normal));
+	   cell.setBorder(PdfPCell.NO_BORDER);
+	   cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
 	   table.addCell(cell);
 	  
+	   
+	   cell = new PdfPCell(new Phrase("Name & Signature",normal));
+       cell.setBorder(PdfPCell.NO_BORDER);
+	   cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+	   table.addCell(cell);
+	  	
+	  	
+	   cell = new PdfPCell(new Phrase("With Rubber Stamp",normal));
+	   cell.setBorder(PdfPCell.NO_BORDER);
+	   cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+	   table.addCell(cell);
 
 	   
-	  	
-	  
-	  	
-	   cell = new PdfPCell(new Phrase(" "));
-	 //  cell.setBorder(PdfPCell.NO_BORDER);
-	   table.addCell(cell);
 	   
-	   table.setSpacingBefore(10f);
+	   
+	   
+	   
 	    document.add(table);
 		  
 		  }
