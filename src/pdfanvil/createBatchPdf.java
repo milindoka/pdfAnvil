@@ -25,9 +25,9 @@ public class createBatchPdf
 
 	//fylename=path+"/"+ReportName+"-Science.txt";
 	
-	int strength=25,requiredtables=0;
+	int strength=32,requiredtables=0;
 	 //Font normalFont = FontFactory.getFont(FontFactory.getFont("Liberation Serif", Font.NORMAL,10));
-	 Font normal = new Font(Font.FontFamily.TIMES_ROMAN, 10,
+	 Font normal = new Font(Font.FontFamily.TIMES_ROMAN, 11,
              Font.NORMAL);
 	 public String getJarPath()
     {
@@ -67,12 +67,10 @@ public class createBatchPdf
 	    	document.setMargins(50, 30, 2, 2);
 	    	PdfWriter.getInstance(document, new FileOutputStream(filename));
 	    	document.open();
-	    	
-	        //com.itextpdf.text.Font NORMAL = new com.itextpdf.text.Font(FontFamily.TIMES_ROMAN, 12);
+	       
 	    	FillSeatArray();
 	        AddHeader(document);
 	        AddBody(document);
-	    	
 	       
          
 	        //AddFooter(document);
@@ -84,13 +82,9 @@ public class createBatchPdf
 
   void AddHeader(Document document) throws DocumentException, IOException
   {PdfPTable table = new PdfPTable(1);
-   PdfPCell cell = new PdfPCell(new Phrase(" "));
-   cell.setBorder(PdfPCell.NO_BORDER);
-   table.setWidthPercentage(95);
-   table.addCell(cell);
+   
   	
-  	
-   cell = new PdfPCell(new Phrase("College Index Number",normal));cell.setBorder(PdfPCell.NO_BORDER);
+   PdfPCell cell = new PdfPCell(new Phrase("College Index Number",normal));cell.setBorder(PdfPCell.NO_BORDER);
    cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
    table.addCell(cell);
   	
@@ -118,11 +112,11 @@ public class createBatchPdf
   	cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
   	table.addCell(cell);
     */
-  	table.setSpacingAfter(10f);
+ // 	table.setSpacingAfter(10f);
   	
   	//////////   table row
-  	
-  	PdfPTable table2 = new PdfPTable(3);
+    float col3[]= {12,12,7};  	
+  	PdfPTable table2 = new PdfPTable(col3);
   	 table2.setWidthPercentage(95);
     cell = new PdfPCell(new Phrase("School/College/Center : SIWS College",normal));
     cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
@@ -190,7 +184,12 @@ cell = new PdfPCell(new Phrase(" ",normal));
 cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
 cell.setBorder(PdfPCell.NO_BORDER);
 table2.addCell(cell);
-  	
+
+table2.setSpacingAfter(8f);
+
+
+
+
     document.add(table);
     document.add(table2);
 		  
@@ -208,7 +207,7 @@ table2.addCell(cell);
   	 table2.setWidthPercentage(95);
    PdfPCell cell = new PdfPCell(new Phrase("Sr No",normal));
     cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-  //  cell.setBorder(PdfPCell.NO_BORDER);
+    cell.setPaddingBottom(5f);
     table2.addCell(cell);  	
   	
     cell = new PdfPCell(new Phrase("Seat No",normal));
@@ -236,7 +235,7 @@ table2.addCell(cell);
     	srno=String.format("%d",i+1);
     cell = new PdfPCell(new Phrase(srno,normal));
     cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-    //cell.setBorder(PdfPCell.NO_BORDER);
+    cell.setPaddingBottom(5f);
     table2.addCell(cell);
     
     cell = new PdfPCell(new Phrase(roll.get(i),normal));
