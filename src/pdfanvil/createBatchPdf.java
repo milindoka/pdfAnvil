@@ -17,17 +17,15 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-//Font MyFont = new Font("Liberation Serif", Font.PLAIN,10);
-//pg.setFont(MyFont); 
 
 
 public class createBatchPdf
 {
 	ArrayList<String> roll=new ArrayList<String>();//creating new generic arraylist  
-	ArrayList<String> mark=new ArrayList<String>();//creating new generic arraylist
+
 	//fylename=path+"/"+ReportName+"-Science.txt";
 	
-	int strength=95,requiredtables=0;
+	int strength=25,requiredtables=0;
 	 //Font normalFont = FontFactory.getFont(FontFactory.getFont("Liberation Serif", Font.NORMAL,10));
 	 Font normal = new Font(Font.FontFamily.TIMES_ROMAN, 10,
              Font.NORMAL);
@@ -40,19 +38,19 @@ public class createBatchPdf
     }
 	
 	
-	void FillMarksArray()
+	void FillSeatArray()
 	{   roll.removeAll(roll);
-	    mark.removeAll(mark);
+	   
         int x=0;
-        String str;
-		Random ran = new Random();
+        String str="M0215301";
+		
 		for(int i=0;i<strength;i++)
 		  {
-			x = ran.nextInt(101);
-			str=String.format("%d", 5001+i);
+			
+			
 			roll.add(str); 
-			str=String.format("%02d", x);
-			mark.add(str);
+			str=Increment(str);
+			
 			
 		  }
 	
@@ -66,17 +64,18 @@ public class createBatchPdf
 
 	        String filename="hello.pdf";
 	    	Document document = new Document(PageSize.A4);
-	    	document.setMargins(50, 2, 2, 2);
+	    	document.setMargins(50, 30, 2, 2);
 	    	PdfWriter.getInstance(document, new FileOutputStream(filename));
 	    	document.open();
 	    	
 	        //com.itextpdf.text.Font NORMAL = new com.itextpdf.text.Font(FontFamily.TIMES_ROMAN, 12);
-	    	
+	    	FillSeatArray();
 	        AddHeader(document);
-	    	FillMarksArray();
 	        AddBody(document);
+	    	
+	       
          
-	        AddFooter(document);
+	        //AddFooter(document);
 	        
 	        
 	        document.close();
@@ -191,89 +190,88 @@ cell = new PdfPCell(new Phrase(" ",normal));
 cell.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
 cell.setBorder(PdfPCell.NO_BORDER);
 table2.addCell(cell);
-
-
-    
-    
-    
-  	
   	
     document.add(table);
     document.add(table2);
 		  
   }
 	  
-	  void AddBody(Document document) throws DocumentException, IOException
-	  {PdfPTable table = new PdfPTable(5);
-	   table.setWidthPercentage(95);
-	//   table.getDefaultCell().setFixedHeight(150);
-	  ///Create 5 subtables
-	  float colwidth[]={6,3};
-	  PdfPTable [] tab = new PdfPTable[5];
-	  //initialize subtables..
-	  for(int i=0;i<5;i++)
-	   { tab[i] = new PdfPTable(colwidth);
-         tab[i].setWidthPercentage(95);
-         
-	   }
+
+  void AddBody(Document document) throws DocumentException, IOException
+  {
   	
-      //Fill and Add Subtables as required, skip extra subtables by inserting empty cell 
-    for(int j=0;j<5;j++)
-  	  {if(j<requiredtables) 
-  		  { FillSubTable(tab[j],j); 
-  		    PdfPCell cellfortable = new PdfPCell();
-  		    cellfortable.setPadding(0);
-  		  cellfortable.setBorder(PdfPCell.NO_BORDER);
-  		    cellfortable.addElement(tab[j]);
-  		    table.addCell(cellfortable);
-  		  }
-  	  else
-  	  {  
-  		PdfPCell cell= new PdfPCell(new Phrase(""));
-  		cell.setBorder(PdfPCell.NO_BORDER);
-  		table.addCell(cell);
-  	  }
-  	}
-       	
-     	document.add(table);
+   float col[]={4,8,8,30};
+  	
+  	//////////   TITLE ROW
+  	
+  	PdfPTable table2 = new PdfPTable(col);
+  	 table2.setWidthPercentage(95);
+   PdfPCell cell = new PdfPCell(new Phrase("Sr No",normal));
+    cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+  //  cell.setBorder(PdfPCell.NO_BORDER);
+    table2.addCell(cell);  	
+  	
+    cell = new PdfPCell(new Phrase("Seat No",normal));
+    cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+    //cell.setBorder(PdfPCell.NO_BORDER);
+    table2.addCell(cell);
+    
+    cell = new PdfPCell(new Phrase("Session",normal));
+    cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+    //cell.setBorder(PdfPCell.NO_BORDER);
+    table2.addCell(cell);
+  	
+	  	
+    cell = new PdfPCell(new Phrase("Student's Signature",normal));
+    cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+    //cell.setBorder(PdfPCell.NO_BORDER);
+    table2.addCell(cell);  	
+  	
+    
+//////////table rows
+    String srno;
+    for(int i=0;i<strength;i++)
+    	
+    {
+    	srno=String.format("%d",i+1);
+    cell = new PdfPCell(new Phrase(srno,normal));
+    cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+    //cell.setBorder(PdfPCell.NO_BORDER);
+    table2.addCell(cell);
+    
+    cell = new PdfPCell(new Phrase(roll.get(i),normal));
+    cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+    //cell.setBorder(PdfPCell.NO_BORDER);
+    table2.addCell(cell);
+  	
+    cell = new PdfPCell(new Phrase("Afternoon",normal));
+    cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+    table2.addCell(cell);  	
+
+    cell = new PdfPCell(new Phrase(" ",normal));
+    cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+    table2.addCell(cell);
+    }
+////////table row
+  	
+    document.add(table2);
 		  
-		  
-	  }
+  }
+
+  
+  
+  
+  
+  
+  
 	  
 
-	 void FillSubTable(PdfPTable tbl,int index)
-	 {
-		 PdfPCell cell = new PdfPCell(new Phrase("ROLL"));
-		  cell.setPaddingBottom(4f);
-		  
-	  	  cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-	  	  tbl.addCell(cell);
-	  	  cell = new PdfPCell(new Phrase("MRK"));
-	  	  cell.setPaddingBottom(4f);
-	  	  cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-	  	  tbl.addCell(cell);
-	  	
-	  	for(int i=0;i<30;i++)
-	  	{ if(i+index*30>=strength) break;
-	  
-	  	  cell = new PdfPCell(new Phrase(roll.get(i+index*30)));
-	  	  cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-	      cell.setPaddingBottom(3f);
-	      cell.setPaddingTop(1f);
-		  tbl.addCell(cell);
-		  cell = new PdfPCell(new Phrase(mark.get(i+index*30)));
-		  cell.setPaddingBottom(3f);	
-		  cell.setPaddingTop(1f);
-		  cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-		  
-		  tbl.addCell(cell);
-	  		
-	  	}
+	
 	  	
 		 
 		 
 		 
-	 }
+	 
 
 	 
 	 
@@ -325,6 +323,30 @@ table2.addCell(cell);
 
 
 	 
+	  
+	  private String Increment(String alphaNumericString)
+	    {  char[] an = alphaNumericString.toCharArray();
+	        int i = an.length - 1;
+	        while (true)
+	        {   if(an[i]<'0' || an[i]>'9') return new String(an);
+	            if (i <= 0)
+	                try { throw new Exception("Maxed out number!!!"); }
+	                catch (Exception e)
+	                { e.printStackTrace(); }
+	            an[i]++;
+
+	            if (an[i] - 1 == '9')
+	            {
+	                an[i] = '0';
+	                i--;
+	                continue;
+	            }
+
+
+	            return new String(an);
+	        }
+	    }
+
 	  
 	  
 	 
