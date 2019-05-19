@@ -24,7 +24,7 @@ public class createBatchPdf
 	ArrayList<String> roll=new ArrayList<String>();//creating new generic arraylist  
 
 	int strength=32,requiredtables=0;
-	 Font normal = new Font(Font.FontFamily.TIMES_ROMAN, 11,
+	 Font normal = new Font(Font.FontFamily.TIMES_ROMAN, 10,
              Font.NORMAL);
 	 public String getJarPath()
     {
@@ -56,7 +56,7 @@ public class createBatchPdf
 
 	        String filename="hello.pdf";
 	    	Document document = new Document(PageSize.A4);
-	    	document.setMargins(50, 30, 2, 2);
+	    	document.setMargins(50, 30, 15, 2);
 	    	PdfWriter.getInstance(document, new FileOutputStream(filename));
 	    	document.open();
 	       
@@ -72,30 +72,54 @@ public class createBatchPdf
 
 	  
 	  void AddBoxedText(Document document) throws DocumentException, IOException
-	  {
-		  PdfPTable table = new PdfPTable(3);
-		  table.setTotalWidth(new float[]{12,12,12 });
+	  {   
+		  PdfPTable OuterTable5 = new PdfPTable(4);
+		  OuterTable5.setWidthPercentage(95);
+		  PdfPCell cell = new PdfPCell(new Phrase(" ",normal)); //create cell object
+		  cell.setBorder(PdfPCell.NO_BORDER);
+		  OuterTable5.addCell(cell);
+		 // OuterTable5.addCell(cell); //first two empty
+		  
+		  cell = new PdfPCell(new Phrase("College Index Number",normal));
+		  cell.setBorder(PdfPCell.NO_BORDER);
+//		   cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+	
+		  OuterTable5.addCell(cell);
+		  
+		  
+		  
+		  String indexno="J31.04.005";
+	      int len=indexno.length();
+		  PdfPTable table = new PdfPTable(len);
+		  float totalwidth=12 * len;
+		  table.setTotalWidth(totalwidth);
 		  table.setLockedWidth(true);
 		  
-	   PdfPCell cell = new PdfPCell(new Phrase("I",normal));
+		  
 	   
-	   cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-	   table.addCell(cell);
-	  
 	   
-	   cell = new PdfPCell(new Phrase("E",normal));
-      //cell.setBorder(PdfPCell.NO_BORDER);
-	   cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-	   table.addCell(cell);
-	  	
-	  	
-	   cell = new PdfPCell(new Phrase("S",normal));
-	   //cell.setBorder(PdfPCell.NO_BORDER);
-	   cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-	   table.addCell(cell);
-	  	    
-	  	   
-	    document.add(table);
+	   for(int i=0;i<len;i++)
+	   { String temp="";
+	     temp+=indexno.charAt(i);
+		 cell = new PdfPCell(new Phrase(temp,normal));
+		 cell.setPaddingBottom(5f);
+		 cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+	     table.addCell(cell);
+	   }
+      
+	   PdfPCell cellfortable = new PdfPCell();
+		    cellfortable.setPadding(0);
+		  cellfortable.setBorder(PdfPCell.NO_BORDER);
+		    cellfortable.addElement(table);
+		   
+	   
+	   OuterTable5.addCell(cellfortable);
+	   
+	   cell = new PdfPCell(new Phrase(" ",normal)); //fourth object
+		  cell.setBorder(PdfPCell.NO_BORDER);
+		  OuterTable5.addCell(cell);
+		  
+	    document.add(OuterTable5);
 	  
 		  
 		  }
@@ -107,12 +131,9 @@ public class createBatchPdf
   void AddHeader(Document document) throws DocumentException, IOException
   {PdfPTable table = new PdfPTable(1);
   	
-   PdfPCell cell = new PdfPCell(new Phrase("College Index Number",normal));cell.setBorder(PdfPCell.NO_BORDER);
-   cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-   table.addCell(cell);
+   
   	
-  	
-  	cell = new PdfPCell(new Phrase("Maharashtra State Board of Secondary & Higher Secondary Education",normal));cell.setBorder(PdfPCell.NO_BORDER);
+  	PdfPCell cell = new PdfPCell(new Phrase("Maharashtra State Board of Secondary & Higher Secondary Education",normal));cell.setBorder(PdfPCell.NO_BORDER);
   	cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);cell.setBorder(PdfPCell.NO_BORDER);
   	table.addCell(cell);
 
