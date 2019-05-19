@@ -2,9 +2,12 @@ package pdfanvil;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.swing.JOptionPane;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -21,9 +24,17 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public class createBatchPdf
 {
+	
+	public void show(String msg) ///for debugging
+	{JOptionPane.showMessageDialog(null, msg);}
+    
+    public void show(int msg)
+	{JOptionPane.showMessageDialog(null, msg);}
+
+	
 	ArrayList<String> roll=new ArrayList<String>();//creating new generic arraylist  
 
-	int strength=32,requiredtables=0;
+	int strength=32;
 	 Font normal = new Font(Font.FontFamily.TIMES_ROMAN, 10,
              Font.NORMAL);
 	 public String getJarPath()
@@ -34,6 +45,35 @@ public class createBatchPdf
      	return  path;
     }
 	
+	int TotalBatchesOnDisk; 
+	 public  ArrayList<String> fileArray = new ArrayList<String>();
+	 
+	 int listfiles(String path)
+	    { 
+	  	  FilenameFilter mrkFilter = new FilenameFilter() {
+				public boolean accept(File dir, String name) {
+					String lowercaseName = name.toLowerCase();
+					if (lowercaseName.endsWith(".bch")) {
+						return true;
+					} else {
+						return false;
+					}
+				}
+			};
+	  	  
+	  	  fileArray.removeAll(fileArray);
+	  	  File folder = new File(path);
+	  	  File[] listOfFiles = folder.listFiles(mrkFilter);
+	  	      for (int i = 0; i < listOfFiles.length; i++) {
+	  	        if (listOfFiles[i].isFile()) 
+	  	        {  fileArray.add(listOfFiles[i].getAbsolutePath());
+	  	         } 
+	  	      }
+	  	    int Total=fileArray.size();
+	  	    return Total;
+	    }
+	 
+	 
 	
 	void FillSeatArray()
 	{   roll.removeAll(roll);
@@ -50,10 +90,12 @@ public class createBatchPdf
 	
 	
 	 void CardsPdf() throws DocumentException, IOException
-	    {   if(strength>200) return;
-		 	requiredtables=strength/30;
-	        if(strength%30!=0) requiredtables++;
-
+	    { 
+		//  String JarFilePath=getJarPath();
+		//  show(JarFilePath);
+		  TotalBatchesOnDisk=listfiles("/home/milind");
+		  show(TotalBatchesOnDisk);
+		  
 	        String filename="hello.pdf";
 	    	Document document = new Document(PageSize.A4);
 	    	document.setMargins(50, 30, 15, 2);
