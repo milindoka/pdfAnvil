@@ -61,7 +61,8 @@ public class createBatchPdf
 	    	document.open();
 	       
 	    	FillSeatArray();
-	        AddHeader(document);
+	        AddBoxedText(document);
+	    	AddHeader(document);
 	        AddBody(document);
 	        AddFooter(document);
 	        
@@ -69,6 +70,40 @@ public class createBatchPdf
 	    }
 	   	
 
+	  
+	  void AddBoxedText(Document document) throws DocumentException, IOException
+	  {
+		  PdfPTable table = new PdfPTable(3);
+		  table.setTotalWidth(new float[]{12,12,12 });
+		  table.setLockedWidth(true);
+		  
+	   PdfPCell cell = new PdfPCell(new Phrase("I",normal));
+	   
+	   cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+	   table.addCell(cell);
+	  
+	   
+	   cell = new PdfPCell(new Phrase("E",normal));
+      //cell.setBorder(PdfPCell.NO_BORDER);
+	   cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+	   table.addCell(cell);
+	  	
+	  	
+	   cell = new PdfPCell(new Phrase("S",normal));
+	   //cell.setBorder(PdfPCell.NO_BORDER);
+	   cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+	   table.addCell(cell);
+	  	    
+	  	   
+	    document.add(table);
+	  
+		  
+		  }
+
+
+	 
+	 
+	 
   void AddHeader(Document document) throws DocumentException, IOException
   {PdfPTable table = new PdfPTable(1);
   	
